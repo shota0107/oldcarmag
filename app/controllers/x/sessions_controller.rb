@@ -30,3 +30,4 @@ class User::SessionsController < Devise::SessionsController
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 end
+end
