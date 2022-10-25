@@ -1,0 +1,9 @@
+show
+
+<h2>タイトル</h2>
+<p><%= @post.name %></p>
+
+<h2>本文</h2>
+<p><%= @post.introduction %></p>
+
+<%= link_to "編集", edit_users_post_path(@post.id) %>

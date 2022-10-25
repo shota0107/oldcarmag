@@ -6,8 +6,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
-   root to: 'homes#top'
-   resources :posts, only: [:new, :index, :show]
+  root to: 'homes#top'
+  namespace :users do
+    resources :posts
+  end 
   devise_for :publics
   devise_for :admins
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

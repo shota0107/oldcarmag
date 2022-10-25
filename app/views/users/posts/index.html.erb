@@ -1,0 +1,13 @@
+index
+
+<h1>投稿一覧</h1>
+
+<% @posts.each do |post| %>
+
+  <p>タイトル</p>
+
+  <span>
+    <%= link_to "post.name",  users_post_path(post.id) %>
+  </span>
+
+<% end %>
