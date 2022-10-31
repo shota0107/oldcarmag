@@ -7,17 +7,16 @@ class Users::FavoritesController < ApplicationController
   def create
     favorite = current_user.favorites.build(post_id: params[:post_id])
     if favorite.save
-      redirect_to users_post_path(post.id)
+      redirect_to users_post_path(params[:post_id])
     else
-      render :show
-
+      render :posts_show
     end
   end
 
   def destroy
-    favorite = current_user.favorite.find_by(post_id: params[:post_id])
+    favorite = current_user.favorites.find_by(post_id: params[:post_id])
     favorite.destroy
-    redirect_to users_post_path(post.id)
+    redirect_to users_post_path(params[:post_id])
   end
 
   private
