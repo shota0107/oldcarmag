@@ -10,6 +10,9 @@ index
     <%= link_to post.name,  users_post_path(post.id) %>
   </span>
 
+  <p><%= link_to "#{post.comments.count} コメント", users_post_path(post.id) %></p>
+
 <% end %>
+
 
 <%= link_to "新規投稿", new_users_post_path %>

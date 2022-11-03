@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   namespace :users do
     resources :posts do
       resource :favorite, only: [:create, :destroy]
+      resources :comments, only: [:create, :destroy]
     end
     resources :favorites, only: [:index]
+
   end
 
   devise_for :publics
