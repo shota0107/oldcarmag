@@ -6,6 +6,17 @@ show
 <h2>本文</h2>
 <p><%= @post.introduction %></p>
 
+<h2>投稿写真</h2>
+  <% if post.image.attached? %>
+    <%= image_tag post.image, size: "100x100" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "100x100" %>
+  <% end %>
+  
+  <% @post.tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %>
+
 <p><%= link_to "#{@post.comments.count} コメント", users_post_path(@post.id) %></p>
 
 <%= link_to "編集", edit_users_post_path(@post.id) %>

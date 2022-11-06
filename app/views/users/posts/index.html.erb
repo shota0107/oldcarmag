@@ -12,10 +12,28 @@ index
 
   <p><%= link_to "#{post.comments.count} コメント", users_post_path(post.id) %></p>
 
+  <% if post.image.attached? %>
+    <%= image_tag post.image, size: "100x100" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "100x100" %>
+  <% end %>
+
+  <% post.tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %>
+
 <% end %>
 
 
 <%= link_to "新規投稿", new_users_post_path %>
+
+<%= form_tag users_posts_path, method: :get, class: 'boards__searchForm' do %>
+      <%= select_tag :tag_id,options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+        {
+          prompt: 'タグで絞り込み検索',
+          onchange: 'submit(this.form);'
+        }%>
+    <% end %>
 
 <h1>投稿検索</h1>
 <%= search_form_for @q, url:  search_users_posts_path do |f| %>
