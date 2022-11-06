@@ -1,4 +1,6 @@
 class Users::PostsController < ApplicationController
+  before_action :set_q, only: [:index, :search]
+
   def new
     @post = Post.new
   end
@@ -35,10 +37,18 @@ class Users::PostsController < ApplicationController
 
   end
 
+  def search
+    @results = @q.result
+  end
+
   private
 
   def post_params
     params.require(:post).permit(:name, :introduction, :image)
+  end
+
+  def set_q
+    @q = Post.ransack(params[:q])
   end
 
 

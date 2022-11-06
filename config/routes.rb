@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   namespace :users do
     resources :posts do
+      collection do
+        get 'search'
+      end 
       resource :favorite, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]
     end

@@ -16,3 +16,11 @@ index
 
 
 <%= link_to "新規投稿", new_users_post_path %>
+
+<h1>投稿検索</h1>
+<%= search_form_for @q, url:  search_users_posts_path do |f| %>
+  <%= f.label :name_cont, 'ユーザー名' %>
+  <%= f.search_field :name_cont %>
+  <br>
+  <%= f.submit '検索' %>
+<% end %>
