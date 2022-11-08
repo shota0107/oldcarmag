@@ -1,0 +1,16 @@
+<div>
+  <h3><%= @user.name %></h3>
+</div>
+
+
+
+<% @posts.each do |post| %>
+<div>
+  <p>タイトル：<%= post.name %></p>
+  <p>本文：<%= post.introduction %></p>
+  <p>投稿者：<%= post.user.name %></p>
+</div>
+<% end %>
+
+<%= link_to '編集' ,edit_user_path(@user.id) %>
+<%= link_to "削除", user_path(@user.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>

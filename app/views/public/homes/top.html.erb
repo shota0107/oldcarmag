@@ -1,0 +1,30 @@
+top page
+
+<%= link_to "投稿" , new_post_path %>
+<% if user_signed_in? %>
+<%= link_to "ユーザー" , user_path(current_user) %>
+<% end %>
+
+<h1>投稿一覧</h1>
+
+<% @posts.each do |post| %>
+
+  <p>タイトル</p>
+
+  <span>
+    <%= link_to post.name, post_path(post.id) %>
+  </span>
+
+  <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+
+  <% if post.image.attached? %>
+    <%= image_tag post.image, size: "100x100" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "100x100" %>
+  <% end %>
+
+  <% post.tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %>
+
+<% end %>
