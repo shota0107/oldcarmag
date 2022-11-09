@@ -13,41 +13,11 @@
 
   <body>
     <header>
-      <ul class="nav pull-right nav-pills">
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      </li>
-      <li>
-        <%= link_to "新規投稿", new_post_path %>
-      </li>
-      <li>
-        <%= link_to "投稿一覧", posts_path %>
-      </li>
-      <li>
-        <%= link_to "会員詳細", user_path(current_user) %>
-      </li>
-    <% else %>
-       <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-    <% end %>
-    </ul>
-    </header>
-    <%= yield %>
-  </body>
-</html>
-
-      <div class="container">
+       <div class="container">
         <div class="row">
           <div class="col">
             <nav class="navbar navbar-expand-md navbar-light px-0 bg-light">
               <%= link_to  root_path, class:"my-0" do %>
-                <%#= image_tag "logo.png", class:"logo" %>
               <% end %>
               <h6 class="my-auto offset-md-1">
                 <% if current_user %>
@@ -72,9 +42,6 @@
                     <li class="nav-item">
                       <%= link_to "投稿一覧", posts_path, class:"nav-link" %>
                     </li>
-                    <li class="nav-item" type="button" data-toggle="collapse" data-target="#navbarsearch" aria-controls="navbarsearch" aria-expanded="false" aria-label="Toggle search">
-                      <p class="nav-link mb-0">検索</p>
-                    </li>
                     <li class="nav-item">
                       <%= link_to "新規投稿", new_post_path, class:"nav-link" %>
                     </li>
@@ -82,26 +49,23 @@
                       <%= link_to "ログアウト", destroy_user_session_path, class:"nav-link", method: :delete %>
                     </li>
 
-                  <!--<%# elsif current_admin %>-->
-                  <!--  <li class="nav-item">-->
-                  <!--    <%#= link_to "会員リスト", admin_users_path, class:"nav-link" %>-->
-                  <!--  </li>-->
-                  <!--  <li class="nav-item">-->
-                  <!--    <#%= link_to "記事リスト", admin_articles_path, class:"nav-link" %>-->
-                  <!--  </li>-->
-                  <!--  <li class="nav-item" type="button" data-toggle="collapse" data-target="#navbarsearch" aria-controls="navbarsearch" aria-expanded="false" aria-label="Toggle search">-->
-                  <!--    <p class="nav-link mb-0">検索</p>-->
-                  <!--  </li>-->
-                  <!--  <li class="nav-item">-->
-                  <!--    <%#= link_to "ログアウト", destroy_admin_session_path, class:"nav-link", method: :delete %>-->
-                  <!--  </li>-->
+                  <% elsif current_admin %>
+                    <li class="nav-item">
+                      <%= link_to "会員リスト", admin_users_path, class:"nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                      <%= link_to "投稿一覧", admin_posts_path, class:"nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                      <%= link_to "ログアウト", destroy_admin_session_path, class:"nav-link", method: :delete %>
+                    </li>
 
                   <% else %>
                     <li class="nav-item">
-                      <%= link_to "投稿一覧", posts_path, class:"nav-link" %>
+                      <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post, class:"nav-link" %>
                     </li>
-                    <li class="nav-item" type="button" data-toggle="collapse" data-target="#navbarsearch" aria-controls="navbarsearch" aria-expanded="false" aria-label="Toggle search">
-                      <p class="nav-link mb-0">検索</p>
+                    <li class="nav-item">
+                      <%= link_to "新規登録", new_user_registration_path, class:"nav-link" %>
                     </li>
                     <li class="nav-item">
                       <%= link_to "ログイン", new_user_session_path, class:"nav-link" %>
@@ -116,3 +80,8 @@
           </div>
         </div>
       </div>
+    </header>
+    <%= yield %>
+  </body>
+</html>
+

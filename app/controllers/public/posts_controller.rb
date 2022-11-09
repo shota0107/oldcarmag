@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :set_q, only: [:index, :search]
+  before_action :not_permmited_guest_user, only: [:index]
 
   def new
     @post = Post.new
@@ -7,12 +8,13 @@ class Public::PostsController < ApplicationController
 
   def create
     post = Post.new(post_params)
+    post.user_id = current_user.id
     post.save
     redirect_to posts_path
   end
 
   def index
-    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all
+    @posts = params[:tag_id].blank? ? Post.all : Tag.find(params[:tag_id]).posts
   end
 
   def show
@@ -31,8 +33,8 @@ class Public::PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])  
-    post.destroy  
+    post = Post.find(params[:id])
+    post.destroy
     redirect_to users_posts_path
   end
 
@@ -48,6 +50,11 @@ class Public::PostsController < ApplicationController
 
   def set_q
     @q = Post.ransack(params[:q])
+  end
+
+  def not_permmited_guest_user
+    return if current_user.is_guest?
+    redirect_to root_path
   end
 
 

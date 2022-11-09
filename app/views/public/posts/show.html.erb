@@ -17,26 +17,24 @@ show
     <%= tag.name %>
   <% end %>
 
-<p><%= link_to "#{@post.comments.count} コメント", users_post_path(@post.id) %></p>
+<p><%= link_to "#{@post.comments.count} コメント", post_path(@post.id) %></p>
 
-<%= link_to "編集", edit_users_post_path(@post.id) %>
-<%= link_to "削除", users_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<%= link_to "編集", edit_post_path(@post.id) %>
+<%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 
 <% if @post.favorited_by?(current_user) %>
     <p>
-      <%= link_to users_post_favorite_path(@post), method: :delete do %>
+      <%= link_to post_favorite_path(@post), method: :delete do %>
         ♥<%= @post.favorites.count %> いいね
       <% end %>
     </p>
     <% else %>
     <p>
-      <%= link_to users_post_favorite_path(@post), method: :post do %>
+      <%= link_to post_favorite_path(@post), method: :post do %>
         ♡<%= @post.favorites.count %> いいね
       <% end %>
     </p>
 <% end %>
-
-<%= link_to "いいね一覧", users_favorites_path %>
 
 <div>
   <p>コメント件数：<%= @post.comments.count %></p>
@@ -45,12 +43,12 @@ show
     <%= comment.user.name %>
     <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
     <% if comment.user == current_user %>
-      <%= link_to "削除", users_post_comment_path(comment.post, comment), method: :delete %>
+      <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
     <% end %>
   <% end %>
 </div>
 <div>
-  <%= form_with model: [:users, @post, @comment] do |f| %>
+  <%= form_with model: [ @post, @comment] do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>
   <% end %>

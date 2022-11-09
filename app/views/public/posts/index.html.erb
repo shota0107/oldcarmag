@@ -24,8 +24,9 @@ index
 
 <% end %>
 
-
+<% unless current_user.is_guest? %>
 <%= link_to "新規投稿", new_post_path %>
+<% end %>
 
 <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
       <%= select_tag :tag_id,options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),

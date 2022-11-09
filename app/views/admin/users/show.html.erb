@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <h4>会員詳細：<%= @user.name %></h4>
+      </div>
+      <div class="col">
+        <%= link_to "会員情報を編集する", edit_admin_user_path(@user.id), class:"btn btn-success" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+
+    <div class="row mb-3">
+      <div class="col">
+        <h4>投稿記事の管理</h4>
+      </div>
+    </div>
+
+  <%#= render partial: "/admin/posts/list", locals: {posts: @posts} %>
+
+</div>
