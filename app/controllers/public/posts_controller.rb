@@ -29,13 +29,13 @@ class Public::PostsController < ApplicationController
   def update
     post = Post.find(params[:id])
     post.update(post_params)
-    redirect_to users_post_path(post.id)
+    redirect_to post_path(post.id)
   end
 
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to users_posts_path
+    redirect_to posts_path
   end
 
   def search
