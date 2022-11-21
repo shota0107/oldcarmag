@@ -1,16 +1,18 @@
 class Admin::PostsController < ApplicationController
+  before_action :authenticate_admin!, only: [:show,:new]
   def index
     @posts = Post.all
   end
 
   def show
     @post = Post.find(params[:id])
+    @comment = @post.comments.build
   end
 
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to users_posts_path
+    redirect_to admin_users_posts_path
   end
 
   private
