@@ -17,7 +17,7 @@ show
     <%= tag.name %>
   <% end %>
 
-<p><%= link_to "#{@post.comments.count} コメント", admin_post_comments_path(@post.id) %></p>
+<p><%= "#{@post.comments.count} コメント" %></p>
 
 <%= link_to "削除", admin_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 
