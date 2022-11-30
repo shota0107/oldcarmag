@@ -1,6 +1,7 @@
 class Public::PostsController < ApplicationController
   before_action :set_q, only: [:index, :search]
   before_action :not_permmited_guest_user, only: [:index]
+  before_action :ensure_user, only: [:edit, :update, :destroy]
 
   def new
     @post = Post.new
@@ -43,6 +44,12 @@ class Public::PostsController < ApplicationController
   end
 
   private
+
+  def ensure_user
+    @posts = current_user.posts
+    @post = @posts.find_by(id: params[:id])
+    redirect_to post_path(post.id) unless @post
+  end
 
   def post_params
     params.require(:post).permit(:name, :introduction, :image, tag_ids: [])

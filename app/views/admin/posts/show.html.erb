@@ -1,4 +1,4 @@
-show
+admin show
 
 <h2>タイトル</h2>
 <p><%= @post.name %></p>
@@ -19,22 +19,25 @@ show
 
 <p><%= "#{@post.comments.count} コメント" %></p>
 
-<%= link_to "削除", admin_post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<%= link_to "投稿の削除", admin_post_path(@post.id), class:"btn btn-danger py-0", method: :delete, "data-confirm" => "本当に削除しますか？" %>
 
-<% if current_user.present? %>
+<% if admin_signed_in? %>
+  ♥<%= @post.favorites.count %> いいね
+<% elsif user_signed_in? %>
   <% if @post.favorited_by?(current_user) %>
-      <p>
-        <%= link_to post_favorite_path(@post), method: :delete do %>
-          ♥<%= @post.favorites.count %> いいね
-        <% end %>
-      </p>
-      <% else %>
-      <p>
-        <%= link_to post_favorite_path(@post), method: :post do %>
-          ♡<%= @post.favorites.count %> いいね
-        <% end %>
-      </p>
+    <p>
+      <%= link_to post_favorite_path(@post), method: :delete do %>
+        ♥<%= @post.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% else %>
+    <p>
+      <%= link_to post_favorite_path(@post), method: :post do %>
+        ♡<%= @post.favorites.count %> いいね
+      <% end %>
+    </p>
   <% end %>
+<% end %>
 
   <div>
     <p>コメント件数：<%= @post.comments.count %></p>
@@ -42,11 +45,7 @@ show
       <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
       <%= comment.user.name %>
       <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <% if @post.favorited_by?(current_user) %>
-      <% if comment.user == current_user %>
-        <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
-      <% end %>
-    <% end %>
+        <%= link_to "コメントの削除", admin_post_comment_path(comment.post, comment), class:"btn btn-danger py-0", method: :delete,"data-confirm" => "本当に削除しますか？" %>
     <% end %>
   </div>
-<% end %>
+

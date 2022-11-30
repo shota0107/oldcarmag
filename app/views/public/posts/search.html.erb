@@ -21,9 +21,13 @@
               <%= image_tag 'no_image', size: "100x100" %>
             <% end %>
         </td>
-        <td><%= link_to 'Show', users_post_path(post.id) %></td>
-        <td><%= link_to 'Edit', edit_users_post_path(post.id) %></td>
-        <td><%#= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if post.user == current_user %>
+          <td><%= link_to post.name, post_path(post.id) %></td>
+          <td><%= link_to '編集', edit_post_path(post.id) %></td>
+          <td><%= link_to '削除', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+          <td><%= link_to post.name, post_path(post.id) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

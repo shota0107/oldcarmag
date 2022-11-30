@@ -1,5 +1,6 @@
 
   <% @user.each do |user| %>
+    <% next if user.email == 'guest@example.com' %>
       <div class="row mb-3">
         <div class="col offset-md-1">
           <i class="h5 fas fa-user-check"></i><%= link_to user.name, admin_user_path(user.id) %>
