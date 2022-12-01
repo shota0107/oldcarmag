@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :not_permmited_guest_user,
+  before_action :not_permmited_guest_user, only: [:edit, :update, :destroy]
 
   def show
     @user = User.find(params[:id])
@@ -29,8 +29,9 @@ class Public::UsersController < ApplicationController
   end
 
   def not_permmited_guest_user
-    return if current_user.is_guest?
-    redirect_to root_path
+    if current_user.is_guest?
+      redirect_to root_path, alert: "ゲストユーザーはそのページを表示することが出来ません"
+    end
   end
 
 end

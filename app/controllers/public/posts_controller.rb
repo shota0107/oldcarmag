@@ -1,6 +1,5 @@
 class Public::PostsController < ApplicationController
   before_action :set_q, only: [:index, :search]
-  before_action :not_permmited_guest_user, only: [:index]
   before_action :ensure_user, only: [:edit, :update, :destroy]
 
   def new
@@ -11,6 +10,9 @@ class Public::PostsController < ApplicationController
     post = Post.new(post_params)
     post.user_id = current_user.id
     post.save
+    post.errors.each do |error|
+      p error.message
+    end
     redirect_to posts_path
   end
 
@@ -58,11 +60,4 @@ class Public::PostsController < ApplicationController
   def set_q
     @q = Post.ransack(params[:q])
   end
-
-  def not_permmited_guest_user
-    return if current_user.is_guest?
-    redirect_to root_path
-  end
-
-
 end

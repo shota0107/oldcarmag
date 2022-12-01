@@ -1,3 +1,4 @@
+<h1>マイページ</h1>
 <div>
   <h3><%= @user.name %></h3>
 </div>
@@ -8,7 +9,15 @@
 <div>
   <p>タイトル：<%= post.name %></p>
   <p>本文：<%= post.introduction %></p>
+  <p>投稿写真<% if post.image.attached? %>
+    <%= image_tag post.image, size: "100x100" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "100x100" %>
+  <% end %></p>
   <p>投稿者：<%= post.user.name %></p>
+  <p>タグ<% post.tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %></p>
 </div>
 <% end %>
 
