@@ -13,78 +13,76 @@
 
   <body>
     <header>
-       <div class="container">
-        <div class="row">
-          <div class="col">
-            <nav class="navbar navbar-expand-md navbar-light px-0 bg-light">
-              <%= link_to  root_path, class:"my-0" do %>
-              <% end %>
-              <h6 class="my-auto offset-md-1">
-                <% if current_user %>
-                  <i class="h4 fas fa-user-check"></i>ようこそ、<%= current_user.name %>様！
-                <% elsif current_admin %>
-                  <i class="h4 fas fa-key"></i>管理者としてログインしています！
-                <% else %>
+      <nav class="navbar navbar-expand-md navbar-light px-0 bg-light">
+        <div class="container">
+        <%= link_to  root_path, class:"my-0" do %>
+        <% end %>
+        <h6 class="my-auto offset-md-1">
+          <% if current_user %>
+            <i class="h4 fas fa-user-check"></i>ようこそ、<%= current_user.name %>様！
+          <% elsif current_admin %>
+            <i class="h4 fas fa-key"></i>管理者としてログインしています！
+          <% else %>
 
-                <% end %>
-              </h6>
+          <% end %>
+        </h6>
 
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcontent" aria-controls="navbarcontent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcontent" aria-controls="navbarcontent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-              <div class="collapse navbar-collapse" id="navbarcontent">
-                <ul class="navbar-nav ml-auto">
-                  <% if current_user %>
-                    <li class="nav-item">
-                      <%= link_to "マイページ", user_path(current_user.id), class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "投稿一覧", posts_path, class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "新規投稿", new_post_path, class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "ログアウト", destroy_user_session_path, class:"nav-link", method: :delete %>
-                    </li>
+        <div class="collapse navbar-collapse" id="navbarcontent">
+          <ul class="navbar-nav ml-auto">
+            <% if current_user %>
+              <li class="nav-item">
+                <%= link_to "マイページ", user_path(current_user.id), class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "投稿一覧", posts_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "新規投稿", new_post_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_user_session_path, class:"nav-link", method: :delete %>
+              </li>
 
-                  <% elsif current_admin %>
-                    <li class="nav-item">
-                      <%= link_to "会員リスト", admin_users_path, class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "投稿一覧", admin_posts_path, class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "ログアウト", destroy_admin_session_path, class:"nav-link", method: :delete %>
-                    </li>
+            <% elsif current_admin %>
+              <li class="nav-item">
+                <%= link_to "会員リスト", admin_users_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "投稿一覧", admin_posts_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_admin_session_path, class:"nav-link", method: :delete %>
+              </li>
 
-                  <% else %>
-                    <li class="nav-item">
-                      <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post, class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "新規登録", new_user_registration_path, class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "ログイン", new_user_session_path, class:"nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                      <%= link_to "管理者ログイン", new_admin_session_path, class:"nav-link" %>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </nav>
-          </div>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "新規登録", new_user_registration_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_user_session_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "管理者ログイン", new_admin_session_path, class:"nav-link" %>
+              </li>
+            <% end %>
+          </ul>
         </div>
-      </div>
+        </div>
+      </nav>
     </header>
-    <% flash.each do |key, msg| %>
-      <p><%= msg %></p>
-    <% end %>
-    <%= yield %>
+    <div class="container">
+      <% flash.each do |key, msg| %>
+        <p><%= msg %></p>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>
 

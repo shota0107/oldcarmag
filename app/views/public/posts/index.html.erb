@@ -1,45 +1,41 @@
 index
 
 <h1>投稿一覧</h1>
-
-<% @posts.each do |post| %>
-
-  <p>タイトル</p>
-
-  <span>
-    <%= link_to post.name, post_path(post.id) %>
-  </span>
-
-  <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
-
-  <% if post.image.attached? %>
-    <%= image_tag post.image, size: "100x100" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "100x100" %>
-  <% end %>
-
-  <% post.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %>
-
-<% end %>
-
-<% unless current_user.is_guest? %>
-<%= link_to "新規投稿", new_post_path %>
-<% end %>
-
-<%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
-      <%= select_tag :tag_id,options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
-        {
-          prompt: 'タグで絞り込み検索',
-          onchange: 'submit(this.form);'
-        }%>
+<div class="row">
+  <% @posts.each do |post| %>
+    <div class="col-md-4">
+    <p>タイトル</p>
+    <span>
+      <%= link_to post.name, post_path(post.id) %>
+    </span>
+    <% if post.image.attached? %>
+      <%= image_tag post.image, size: "100x100" %>
+    <% else %>
+      <%= image_tag 'no_image', size: "100x100" %>
     <% end %>
+    <% post.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
+    <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+    </div>
+  <% end %>
+</div>
+  <% unless current_user.is_guest? %>
+  <%= link_to "新規投稿", new_post_path %>
+  <% end %>
 
-<h1>投稿検索</h1>
-<%= search_form_for @q, url:  search_posts_path do |f| %>
-  <%= f.label :name_cont, 'キーワード検索' %>
-  <%= f.search_field :name_cont %>
-  <br>
-  <%= f.submit '検索' %>
-<% end %>
+  <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+        <%= select_tag :tag_id,options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+          {
+            prompt: 'タグで絞り込み検索',
+            onchange: 'submit(this.form);'
+          }%>
+      <% end %>
+
+  <h1>投稿検索</h1>
+  <%= search_form_for @q, url:  search_posts_path do |f| %>
+    <%= f.label :name_cont, 'キーワード検索' %>
+    <%= f.search_field :name_cont %>
+    <br>
+    <%= f.submit '検索' %>
+  <% end %>

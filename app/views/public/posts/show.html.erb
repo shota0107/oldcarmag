@@ -1,7 +1,11 @@
 show
 
-<h2>タイトル</h2>
+
+<div class="row">
+<div class="offset-md-4 col-md-6">
+    <h2>タイトル</h2>
 <p><%= @post.name %></p>
+
 
 <h2>本文</h2>
 <p><%= @post.introduction %></p>
@@ -59,4 +63,6 @@ show
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>
   <% end %>
+</div>
+</div>
 </div>

@@ -13,6 +13,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(user_params)
+    flash[:notice] = "変更が完了しました。"
     redirect_to user_path(@user.id)
   end
 

@@ -8,6 +8,7 @@ class Public::FavoritesController < ApplicationController
   def create
     favorite = current_user.favorites.build(post_id: params[:post_id])
     if favorite.save
+      flash[:notice] = "いいねしました。"
       redirect_to post_path(params[:post_id])
     else
       render :posts_show
@@ -17,6 +18,7 @@ class Public::FavoritesController < ApplicationController
   def destroy
     favorite = current_user.favorites.find_by(post_id: params[:post_id])
     favorite.destroy
+    flash[:notice] = "いいねを取り消しました。"
     redirect_to post_path(params[:post_id])
   end
 
@@ -27,7 +29,7 @@ class Public::FavoritesController < ApplicationController
   end
 
   def not_permmited_guest_user
-    return if current_user.is_guest?
+    return unless current_user.is_guest?
     redirect_to root_path
   end
 

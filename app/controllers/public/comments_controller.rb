@@ -6,11 +6,13 @@ class Public::CommentsController < ApplicationController
     comment = current_user.comments.new(comment_params)
     comment.post_id = post.id
     comment.save
+    flash[:notice] = "コメントしました。"
     redirect_to post_path(params[:post_id])
   end
 
   def destroy
     Comment.find(params[:id]).destroy
+    flash[:notice] = "コメントを削除しました。"
     redirect_to post_path(params[:post_id])
   end
 
@@ -21,7 +23,7 @@ class Public::CommentsController < ApplicationController
   end
 
   def not_permmited_guest_user
-    return if current_user.is_guest?
+    return unless current_user.is_guest?
     redirect_to root_path
   end
 end
