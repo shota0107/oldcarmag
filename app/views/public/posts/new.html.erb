@@ -1,5 +1,13 @@
 
 <h1>新規投稿</h1>
+<% if @post.errors.any? %>
+  <%= @post.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+ <% end %>
 <div class="row">
 <div class="offset-sm-3 col-sm-6">
 <%= form_with model: @post do |f| %>
@@ -29,4 +37,3 @@
 </div>
 </div>
 
-月曜日　バリデーション（空でも投稿ができてしまうため）

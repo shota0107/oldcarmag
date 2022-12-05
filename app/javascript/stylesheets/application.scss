@@ -1,2 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
 //@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+.sample {
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: space-evenly;
+}
+
+.main_center{
+  text-align: center;
+}

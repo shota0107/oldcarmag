@@ -7,14 +7,14 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    post.user_id = current_user.id
-    post.save
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
+    if @post.save
     flash[:notice] = "投稿しました。"
-    post.errors.each do |error|
-      p error.message
-    end
     redirect_to posts_path
+    else
+       render :new
+    end
   end
 
   def index

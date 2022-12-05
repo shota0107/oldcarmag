@@ -1,6 +1,23 @@
 ja:
   activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: 入力されていません。
+            password:
+              blank: 入力されていません。
+        post:
+          attributes:
+            name:
+              blank: 入力してください。
+            introduction:
+              blank: 入力してください。
     attributes:
+      post:
+        name: タイトルを
+        introduction: 本文を
       user:
         confirmation_sent_at: パスワード確認送信時刻
         confirmation_token: パスワード確認用トークン
@@ -27,6 +44,7 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザー
+      post: 投稿
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
