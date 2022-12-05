@@ -8,7 +8,7 @@
 <% @posts.each do |post| %>
 <div class="col-md-4">
 <div>
-  <p>タイトル：<%= post.name %></p>
+  <p>タイトル：<%= link_to post.name, post_path(post.id) %></p>
   <p>本文：<%= post.introduction %></p>
   <p>投稿写真<% if post.image.attached? %>
     <%= image_tag post.image, size: "100x100" %>
