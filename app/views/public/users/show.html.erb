@@ -1,26 +1,36 @@
-<h1>マイページ</h1>
-<div>
-  <h3><%= @user.name %></h3>
+<h1><%= @user.name %>様のマイページ</h1>
+
+<div class="mt-5 mb-3">
+  <%= link_to 'ユーザー情報の編集' ,edit_user_path(@user.id), class:"btn btn-success py-0" %>
 </div>
 
-
-<div class="row">
+<div class="sample">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">タイトル</th>
+      <th scope="col">本文</th>
+      <th scope="col">投稿写真</th>
+      <th scope="col">タグ</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @posts.each do |post| %>
-<div class="col-md-4">
-<div>
-  <p>タイトル：<%= link_to post.name, post_path(post.id) %></p>
-  <p>本文：<%= post.introduction %></p>
-  <p>投稿写真<% if post.image.attached? %>
+  <tr>
+  <td><%= link_to post.name, post_path(post.id) %></td>
+  <td><%= post.introduction %></td>
+  <td><% if post.image.attached? %>
     <%= image_tag post.image, size: "100x100" %>
   <% else %>
     <%= image_tag 'no_image', size: "100x100" %>
-  <% end %></p>
-  <p>投稿者：<%= post.user.name %></p>
-  <p>タグ<% post.tags.each do |tag| %>
+  <% end %></td>
+  <td><% post.tags.each do |tag| %>
     <%= tag.name %>
-  <% end %></p>
-</div>
-</div>
+  <% end %></td>
+  </tr>
 <% end %>
+</tbody>
+</table>
 </div>
-<%= link_to '編集' ,edit_user_path(@user.id) %>
+
+<%= paginate @posts %>

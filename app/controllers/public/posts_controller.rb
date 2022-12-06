@@ -19,6 +19,7 @@ class Public::PostsController < ApplicationController
 
   def index
     @posts = params[:tag_id].blank? ? Post.all : Tag.find(params[:tag_id]).posts
+    @posts = Post.page(params[:page])
   end
 
   def show

@@ -1,12 +1,9 @@
 <div class="main_center">
-投稿詳細ページ
-
+  <h2>投稿詳細ページ</h2>
     <div class="sample">
       <h2>タイトル</h2>
       <p><%= @post.name %></p>
     </div>
-
-
     <div class="sample">
       <h2>本文</h2>
       <p><%= @post.introduction %></p>
@@ -19,7 +16,6 @@
         <%= image_tag 'no_image', size: "100x100" %>
       <% end %>
     </div>
-
     <div class="sample">
       <h2>タグ</h2>
       <% @post.tags.each do |tag| %>
@@ -27,14 +23,6 @@
       <% end %>
     </div>
 
-
-    <p><%= link_to "#{@post.comments.count} コメント", post_path(@post.id) %></p>
-    <% if @post.user == current_user %>
-      <%= link_to "編集", edit_post_path(@post.id), class:"btn btn-success py-0" %>
-      <%= link_to "削除", post_path(@post.id), class:"btn btn-danger py-0",method: :delete, "data-confirm" => "本当に削除しますか？" %>
-    <% else %>
-
-    <% end %>
     <% if admin_signed_in? %>
       ♥<%= @post.favorites.count %> いいね
     <% elsif user_signed_in? %>
@@ -53,23 +41,15 @@
       <% end %>
     <% end %>
 
-    <div>
-      <p>コメント件数：<%= @post.comments.count %></p>
-      <% @post.comments.each do |comment| %>
-        <%= comment.user.name %>
-        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-        <% if comment.user == current_user %>
-          <%= link_to "削除", post_comment_path(comment.post, comment), class:"btn btn-danger py-0", method: :delete, "data-confirm" => "本当に削除しますか？" %>
-        <% else %>
-        <% end %>
-      <% end %>
-    </div>
-    <div>
-      <%= form_with model: [ @post, @comment] do |f| %>
-        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-        <%= f.submit "送信する" %>
-      <% end %>
-    </div>
-    </div>
-  </div>
-</div>
+    <%= form_with model: [ @post, @comment] do |f| %>
+      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+      <%= f.submit "送信する" %>
+    <% end %>
+
+<% if @post.user == current_user %>
+  <%= link_to "投稿の編集", edit_post_path(@post.id), class:"btn btn-success py-0" %>
+  <%= link_to "投稿の削除", post_path(@post.id), class:"btn btn-danger py-0",method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<% else %>
+
+<% end %>
+

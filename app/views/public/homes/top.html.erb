@@ -1,4 +1,4 @@
-top page
+<h1>top page</h1>
 <% if user_signed_in? && current_user.is_guest? %>
   <%= link_to "投稿" , new_post_path %>
 <% end %>
@@ -7,37 +7,51 @@ top page
 <% end %>
 
 
-  <% @posts.each_slice(3) do |posts| %>
-    <div class="row">
-    <% posts.each do |post| %>
+  <div class="row">
+    <% @posts.each do |post| %>
       <div class="col-sm-4">
-        
+        <!-- title start -->
+        <h2 class="text-center h3">
         <% if admin_signed_in? %>
-          <span>
           <%= link_to post.name, admin_post_path(post.id) %>
-          </span>
-          <p><%= link_to "#{post.comments.count} コメント", admin_post_path(post.id) %></p>
         <% elsif user_signed_in? %>
-          <span>
-            <%= link_to post.name, post_path(post.id) %>
-          </span>
-          <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
-        <% end %>
-        
-        <% if post.image.attached? %>
-          <%= image_tag post.image, class: "img-fluid" %>
+          <%= link_to post.name, post_path(post.id) %>
         <% else %>
-          <%= image_tag 'no_image', style: "width:100%;" %>
+          <%= post.name %>
         <% end %>
-        
-        <% post.tags.each do |tag| %>
-            <%= tag.name %>
-        <% end %>
+        </h2>
+        <!-- title end -->
+
+        <!-- image start -->
+        <div class="text-center">
+          <% image_name = post.image.attached? ? post.image : 'no_image' %>
+          <%= image_tag image_name, class: "img-fluid", size: "100x100" %>
+        </div>
+        <!-- image end -->
+
+        <div>
+          <!-- tag start -->
+          <div>
+            <% post.tags.each do |tag| %>
+              <span><%= tag.name %></span>
+            <% end %>
+          </div>
+          <!-- tag end -->
+
+          <!-- comment start -->
+          <div style="width:100%;height: 100px;background-color:#e6f5e6;">
+            <% if admin_signed_in? %>
+              <p><%= link_to "#{post.comments.count} コメント", admin_post_path(post.id) %></p>
+            <% elsif user_signed_in? %>
+              <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+            <% else %>
+            <% end %>
+          </div>
+          <!-- comment end -->
+        </div>
       </div>
-    <% end %>
-    </div>
-  <% end %>
-</div>
+    <% end # @posts.each end %>
+  </div><!-- row end -->
 
 
-
+<%= paginate @posts %>
