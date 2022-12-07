@@ -1,23 +1,28 @@
-admin show
 
-<h2>タイトル</h2>
-<p><%= @post.name %></p>
-
-<h2>本文</h2>
-<p><%= @post.introduction %></p>
-
-<h2>投稿写真</h2>
-  <% if @post.image.attached? %>
-    <%= image_tag @post.image, size: "100x100" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "100x100" %>
-  <% end %>
-
-  <% @post.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %>
-
-<p><%= "#{@post.comments.count} コメント" %></p>
+<div class="main_center">
+  <h2>管理者用投稿詳細ページ</h2>
+    <div class="sample">
+      <h3>タイトル</h3>
+      <p><%= @post.name %></p>
+    </div>
+    <div class="sample">
+      <h3>本文</h3>
+      <p><%= @post.introduction %></p>
+    </div>
+    <div class="sample">
+      <h3>投稿写真</h3>
+      <% if @post.image.attached? %>
+        <%= image_tag @post.image, size: "100x100" %>
+      <% else %>
+        <%= image_tag 'no_image', size: "100x100" %>
+      <% end %>
+    </div>
+    <div class="sample">
+      <h3>タグ</h3>
+      <% @post.tags.each do |tag| %>
+        <%= tag.name %>
+      <% end %>
+    </div>
 
 <%= link_to "投稿の削除", admin_post_path(@post.id), class:"btn btn-danger py-0", method: :delete, "data-confirm" => "本当に削除しますか？" %>
 
@@ -40,12 +45,27 @@ admin show
 <% end %>
 
   <div>
-    <p>コメント件数：<%= @post.comments.count %></p>
-    <% @post.comments.each do |comment| %>
-      <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
-      <%= comment.user.name %>
-      <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-        <%= link_to "コメントの削除", admin_post_comment_path(comment.post, comment), class:"btn btn-danger py-0", method: :delete,"data-confirm" => "本当に削除しますか？" %>
-    <% end %>
-  </div>
-
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">投稿者</th>
+            <th scope="col">コメント日時</th>
+            <th scope="col">コメント</th>
+            <th scope="col"></th></th>
+          </tr>
+        </thead>
+        <tbody>
+      <p>コメント件数：<%= @post.comments.count %></p>
+        <% @post.comments.each do |comment| %>
+        <tr>
+          <td><%= comment.user.name %></td>
+          <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+          <td><%= comment.comment %></td>
+          <td>
+              <%= link_to "削除", admin_post_comment_path(comment.post, comment), class:"btn btn-danger py-0", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>
+    </div>

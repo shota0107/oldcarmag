@@ -1,15 +1,15 @@
 <div class="main_center">
   <h2>投稿詳細ページ</h2>
     <div class="sample">
-      <h2>タイトル</h2>
+      <h3>タイトル</h3>
       <p><%= @post.name %></p>
     </div>
     <div class="sample">
-      <h2>本文</h2>
+      <h3>本文</h3>
       <p><%= @post.introduction %></p>
     </div>
     <div class="sample">
-      <h2>投稿写真</h2>
+      <h3>投稿写真</h3>
       <% if @post.image.attached? %>
         <%= image_tag @post.image, size: "100x100" %>
       <% else %>
@@ -17,11 +17,19 @@
       <% end %>
     </div>
     <div class="sample">
-      <h2>タグ</h2>
+      <h3>タグ</h3>
       <% @post.tags.each do |tag| %>
         <%= tag.name %>
       <% end %>
-    </div>
+</div>
+
+  <% if @post.user == current_user %>
+    <%= link_to "投稿の編集", edit_post_path(@post.id), class:"btn btn-success py-0" %>
+    <%= link_to "投稿の削除", post_path(@post.id), class:"btn btn-danger py-0",method: :delete, "data-confirm" => "本当に削除しますか？" %>
+  <% else %>
+
+  <% end %>
+
 
     <% if admin_signed_in? %>
       ♥<%= @post.favorites.count %> いいね
@@ -41,15 +49,38 @@
       <% end %>
     <% end %>
 
+    <div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">投稿者</th>
+            <th scope="col">コメント日時</th>
+            <th scope="col">コメント</th>
+            <th scope="col"></th></th>
+          </tr>
+        </thead>
+        <tbody>
+      <p>コメント件数：<%= @post.comments.count %></p>
+        <% @comments.each do |comment| %>
+        <tr>
+          <td><%= comment.user.name %></td>
+          <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+          <td><%= comment.comment %></td>
+          <td>
+            <% if comment.user == current_user %>
+              <%= link_to "削除", post_comment_path(comment.post, comment), class:"btn btn-danger py-0", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+            <% else %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>
+    </div>
+
+    <%= paginate @comments %>
+
     <%= form_with model: [ @post, @comment] do |f| %>
       <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-      <%= f.submit "送信する" %>
+      <%= f.submit "送信する", class:"btn btn-primary py-0" %>
     <% end %>
-
-<% if @post.user == current_user %>
-  <%= link_to "投稿の編集", edit_post_path(@post.id), class:"btn btn-success py-0" %>
-  <%= link_to "投稿の削除", post_path(@post.id), class:"btn btn-danger py-0",method: :delete, "data-confirm" => "本当に削除しますか？" %>
-<% else %>
-
-<% end %>
-

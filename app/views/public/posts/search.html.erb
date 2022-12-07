@@ -21,12 +21,17 @@
               <%= image_tag 'no_image', size: "100x100" %>
             <% end %>
         </td>
-        <% if post.user == current_user %>
-          <td><%= link_to post.name, post_path(post.id) %></td>
-          <td><%= link_to '編集', edit_post_path(post.id) %></td>
-          <td><%= link_to '削除', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if admin_signed_in? %>
+          <td><%= link_to post.name,admin_post_path(post.id) %></td>
         <% else %>
-          <td><%= link_to post.name, post_path(post.id) %></td>
+          <% if post.user == current_user %>
+            <td><%= link_to post.name, post_path(post.id) %></td>
+            <td><%= link_to '編集', edit_post_path(post.id) %></td>
+            <td><%= link_to '削除', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to post.name,post_path(post.id) %></td>
+          <% else %>
+            <td><%= link_to post.name,post_path(post.id) %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

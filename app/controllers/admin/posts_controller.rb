@@ -1,7 +1,9 @@
 class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!, only: [:show,:new]
+  before_action :set_q, only: [:index]
+
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page])
   end
 
   def show
@@ -19,6 +21,10 @@ class Admin::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:name, :introduction, :image)
+  end
+
+  def set_q
+    @q = Post.ransack(params[:q])
   end
 
 end
