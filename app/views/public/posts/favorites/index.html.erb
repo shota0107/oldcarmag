@@ -1,4 +1,4 @@
-いいね一覧
+<h2>いいね一覧</h2>
 <% @favorite_posts.each do |post| %>
   <%= link_to post.name, users_posts_path(post.id) %>
   <%= post.introduction %>

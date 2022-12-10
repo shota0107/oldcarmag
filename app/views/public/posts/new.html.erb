@@ -7,33 +7,33 @@
       <li><%= message %></li>
     <% end %>
   </ul>
- <% end %>
+<% end %>
 <div class="row">
 <div class="offset-sm-3 col-sm-6">
-<%= form_with model: @post do |f| %>
-  <h4>タイトル</h4>
-  <%= f.text_field :name %>
-
-  <h4>本文</h4>
-  <%= f.text_area :introduction %>
-
-  <h4>投稿写真</h4>
-  <%= f.file_field :image, accept: "image/*" %>
-
-  <div class="check_box">
-    <span>タグ</span>
-    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-     <div>
-       <%= tag.label do %>
-         <%= tag.check_box %>
-         <%= tag.text %>
-       <% end %>
+  <%= form_with model: @post do |f| %>
+    <h4>タイトル</h4>
+    <%= f.text_field :name %>
+  
+    <h4>本文</h4>
+    <%= f.text_area :introduction %>
+  
+    <h4>投稿写真</h4>
+    <%= f.file_field :image, accept: "image/*" %>
+  
+    <div class="check_box">
+      <span>タグ</span>
+      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+       <div>
+         <%= tag.label do %>
+           <%= tag.check_box %>
+           <%= tag.text %>
+         <% end %>
+       </div>
+      <% end %>
      </div>
-   <% end %>
- </div>
-
-  <%= f.submit '投稿', class:"btn btn-primary py-0" %>
-<% end %>
+  
+   <%= f.submit '投稿', class:"btn btn-primary py-0" %>
+  <% end %>
 </div>
 </div>
 

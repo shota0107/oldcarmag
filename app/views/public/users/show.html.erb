@@ -15,22 +15,22 @@
     </tr>
   </thead>
   <tbody>
-<% @posts.each do |post| %>
-  <tr>
-  <td><%= link_to post.name, post_path(post.id) %></td>
-  <td><%= post.introduction %></td>
-  <td><% if post.image.attached? %>
-    <%= image_tag post.image, size: "100x100" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "100x100" %>
-  <% end %></td>
-  <td><% post.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
+  <% @posts.each do |post| %>
+    <tr>
+    <td><%= link_to post.name, post_path(post.id) %></td>
+    <td><%= post.introduction %></td>
+    <td><% if post.image.attached? %>
+      <%= image_tag post.image, size: "100x100" %>
+    <% else %>
+      <%= image_tag 'no_image', size: "100x100" %>
+    <% end %></td>
+    <td><% post.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
 </div>
 
 <%= paginate @posts %>
