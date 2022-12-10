@@ -6,7 +6,6 @@
     <%= search_form_for @q, url:  search_posts_path do |f| %>
       <%= f.label :name_cont, 'キーワード検索' %>
       <%= f.search_field :name_cont %>
-      <br>
       <%= f.submit '検索', class:"btn btn-primary py-0" %>
     <% end %>
   </div>

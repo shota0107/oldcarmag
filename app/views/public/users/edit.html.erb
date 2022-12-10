@@ -9,27 +9,22 @@
   </ul>
  <% end %>
 
-<div class="row">
+
 <%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
-  <div class="offset-md-3 col-md-6">
-
-
   <h4>名前</h4>
   <%= f.text_field :name %>
 
-  <%= f.label :email %>
+  <h4>メールアドレス</h4>
   <%= f.email_field :email %>
 
-  <%= f.label :password %>
+  <h4>パスワード</h4>
   <%= f.password_field :password %>
 
-  <%= f.label :password_confirmation, "パスワード（確認用）" %>
+  <h4>パスワード（確認用）</h4>
   <%= f.password_field :password_confirmation %>
 
   <%= f.submit '保存',class:"btn btn-primary py-0"%>
-  </div>
 <% end %>
-</div>
 
 <%= link_to "アカウントの削除", user_path(@user.id), class:"btn btn-danger py-0", method: :delete, "data-confirm" => "本当に削除しますか？" %>
 <%= link_to "変更せずマイページへ", user_path(@user.id), class:"btn-dark py-0"%>
