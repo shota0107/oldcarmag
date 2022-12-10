@@ -15,7 +15,7 @@
   <td><%= user.name %></td>
   <td><%= user.email %></td>
   <td><%= user.created_at.strftime('%Y/%m/%d') %>登録</td>
-  <td><%= link_to "アカウントを削除する", admin_user_path(user.id), class:"btn btn-danger py-0", method: :delete %></td>
+  <td><%= link_to "アカウントを削除する", admin_user_path(user.id), class:"btn btn-danger py-0", method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
   </tr>
 <% end %>
 </tbody>
