@@ -17,7 +17,7 @@ Tag.create([
     { name: 'メンテナンス'}
     ])
 
-    Admin.create!(
-  email:      "admin@sample.com",
-  password:   "sample"
-)
+Admin.create([
+  {email: "admin@sample.com"},
+  {password: "sample"}
+])
