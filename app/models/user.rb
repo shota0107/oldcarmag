@@ -12,10 +12,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   validates :name, presence: true
-  validates :introduction, presence: true
   validates :encrypted_password, presence: true
 
-  # has_one_attached :profile_image
 
   enum role: { user: 0, admin: 10, customer: 20, }
 

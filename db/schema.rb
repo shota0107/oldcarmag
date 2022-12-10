@@ -98,8 +98,6 @@ ActiveRecord::Schema.define(version: 2022_11_06_080338) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
-    t.string "introduction"
-    t.string "profile_image_id"
     t.integer "role", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
