@@ -1,5 +1,4 @@
 class Public::FavoritesController < ApplicationController
-  before_action :not_permmited_guest_user,
 
   def index
     @favorite_posts = current_user.favorite_posts

@@ -1,5 +1,4 @@
 class Public::CommentsController < ApplicationController
-  before_action :not_permmited_guest_user
 
   def create
     post = Post.find(params[:post_id])
